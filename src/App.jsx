@@ -7,7 +7,6 @@ import SearchSection from "./Components/SearchSection";
 import { useParams, Link } from "react-router-dom";
 import "./App.css";
 import axios from "axios";
-
 const userAPI = `https://6703fa5aab8a8f8927327e3a.mockapi.io/accounts`;
 const tweetsLink = "https://6703fa5aab8a8f8927327e3a.mockapi.io/tweets";
 function App() {
@@ -15,13 +14,10 @@ function App() {
   const [user, setUser] = useState("");
   const [tweetList, setTweetList] = useState([]);
   const [userTweetList, setUserTweetList] = useState([]);
-
   const [tweet, setTweet] = useState("");
   const [warningText, setWarningText] = useState("");
   const textareaRef = useRef(null);
-
   useEffect(() => {}, [warningText]);
-
   useEffect(() => {
     axios.get(userAPI + `/` + userId).then((res) => {
       setUser(res.data);
@@ -40,7 +36,6 @@ function App() {
       setTweetList(res.data);
     });
   };
-
   const getUserTweets = () => {
     tweetList.map((el) => {
       if (el.userName == user.userName) {
@@ -50,7 +45,6 @@ function App() {
     });
   };
   console.log(tweetList);
-
   const TweetAction = () => {
     if (tweet == "") {
       setWarningText("Type you tweet first");
@@ -79,7 +73,6 @@ function App() {
     setTweet(e.target.value);
     textareaHeight();
   };
-
   useEffect(() => {
     textareaHeight();
   }, [tweet]);
@@ -105,7 +98,6 @@ function App() {
                 alt=""
                 className="rounded-full w-[50px] mx-2"
               />
-
               <div className="flex flex-col w-full">
                 <textarea
                   ref={textareaRef}
@@ -143,8 +135,10 @@ function App() {
                 );
               })}
             </div>
-
-            <Link to={`/tweet/${userId}`} className="btn btn-circle btn-accent text-accent-content btn-lg fixed bottom-20 right-5 md:hidden">
+            <Link
+              to={`/tweet/${userId}`}
+              className="btn btn-circle btn-accent text-accent-content btn-lg fixed bottom-20 right-5 md:hidden"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="30"
@@ -161,7 +155,6 @@ function App() {
               </svg>
             </Link>
           </div>
-          
         </div>
         <SearchSection></SearchSection>
       </div>
@@ -169,9 +162,7 @@ function App() {
     </div>
   );
 }
-
 export default App;
-
 function countTime(publishedDate) {
   const today = new Date();
   const publish = new Date(publishedDate);

@@ -7,7 +7,6 @@ import TweetCard from "../Components/TweetCard";
 import SearchSection from "../Components/SearchSection";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import axios from "axios";
-
 function TweetPage() {
   const { userId } = useParams();
   const { tweetId } = useParams();
@@ -39,7 +38,6 @@ function TweetPage() {
     });
   };
   console.log(tweet);
-
   const checkLanguage = () => {
     if (tweet.tweet && /[\u0600-\u06FF]/.test(tweet.tweet[0])) {
       setIsArabic(true);
@@ -48,7 +46,6 @@ function TweetPage() {
     }
   };
   console.log(tweet.tweet);
-
   const likeAction = () => {
     setLike(!like);
     if (like) {
@@ -74,7 +71,6 @@ function TweetPage() {
         });
     }
   };
-
   const deleteTweet = () => {
     axios.delete(tweetsLink).then((res) => {
       console.log("tweet deleted");
@@ -90,7 +86,6 @@ function TweetPage() {
     setTweetText(e.target.value);
     textareaHeight();
   };
-
   useEffect(() => {
     textareaHeight();
   }, [tweetText]);
@@ -110,7 +105,6 @@ function TweetPage() {
               name={user.name}
               username={user.userName}
             ></Nav>
-         
             <div className="flex border-b-2 border-b-zinc-900 py-5">
               <img
                 src={user.image}
@@ -136,7 +130,6 @@ function TweetPage() {
                   onChange={TextChange}
                   style={{ overflow: "hidden", resize: "none", height: "auto" }}
                 />
-
                 <div className="flex justify-around my-1">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -214,7 +207,6 @@ function TweetPage() {
                 </div>
               </div>
             </div>
-
             <button className="btn btn-circle btn-accent text-accent-content btn-lg fixed bottom-20 right-5 md:hidden">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -262,17 +254,16 @@ function TweetPage() {
                       className="btn text-white btn-error hover:border-error rounded-full w-[70vw] my-2 md:w-[30vw] lg:w-[15vw]"
                     >
                       Delete
-                                      </button>
-                                      
+                    </button>
                   </div>
                 </div>
-                          </dialog>
-                          <Link
-              to={`/home/${userId}`}
-              className="btn  btn-neutral rounded-full w-[80vw] my-2 md:w-[50vw] lg:w-[15vw]"
-            >
-              Cancel
-            </Link>
+              </dialog>
+              <Link
+                to={`/home/${userId}`}
+                className="btn  btn-neutral rounded-full w-[80vw] my-2 md:w-[50vw] lg:w-[15vw]"
+              >
+                Cancel
+              </Link>
             </div>
           </div>
         </div>
@@ -282,9 +273,7 @@ function TweetPage() {
     </div>
   );
 }
-
 export default TweetPage;
-
 function countTime(publishedDate) {
   const today = new Date();
   const publish = new Date(publishedDate);

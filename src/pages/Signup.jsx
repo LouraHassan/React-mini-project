@@ -1,19 +1,17 @@
 import { useState, useEffect } from "react";
-import { Link , useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 const AccountsAPI = "https://6703fa5aab8a8f8927327e3a.mockapi.io/accounts";
-
 function Signup() {
-    const navigate = useNavigate()
+  const navigate = useNavigate();
   const [accounts, setAccounts] = useState([]);
-    const [name, setName] = useState("");
-    const [username, setUsername] = useState("");
+  const [name, setName] = useState("");
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-    const [confirmPass, setConfirmPass] = useState("");
-    const [image, setImage] = useState("")
-  const [warningText, setWarningText] = useState('')
-
+  const [confirmPass, setConfirmPass] = useState("");
+  const [image, setImage] = useState("");
+  const [warningText, setWarningText] = useState("");
   useEffect(() => {
     getAccounts();
   }, []);
@@ -22,62 +20,68 @@ function Signup() {
       setAccounts(res.data);
     });
   };
-
   const checkUser = (user) => {
     let AccountFound = accounts.some((el) => el.userName == user);
     console.log(AccountFound);
     return AccountFound;
-    };
-    
-    const checkEmail = (email) => {
-        let EmailFound = accounts.some((el) => el.email == email);
-        console.log(EmailFound);
-        return EmailFound
-    };
-    const validUsername = (username) => {
-        const pattern = /[A-Z]/;
-        return pattern.test(username)
+  };
+  const checkEmail = (email) => {
+    let EmailFound = accounts.some((el) => el.email == email);
+    console.log(EmailFound);
+    return EmailFound;
+  };
+  const validUsername = (username) => {
+    const pattern = /[A-Z]/;
+    return pattern.test(username);
+  };
+  const validEmail = (email) => {
+    const pattern = /^[^\s@]+@[^s\@]+\.[^\s@]+$/;
+    return pattern.test(email);
+  };
+  const validPassword = (password) => {
+    return password.length >= 8;
+  };
+  const SignupAction = () => {
+    if (
+      name == "" ||
+      username == "" ||
+      email == "" ||
+      password == "" ||
+      confirmPass == ""
+    ) {
+      setWarningText("Please fill all the fields");
+    } else if (validUsername(username)) {
+      setWarningText("Username should be in lowercase");
+    } else if (checkUser(username)) {
+      setWarningText("Username already taken, choose another one");
+    } else if (!validEmail(email)) {
+      setWarningText("Invalid email");
+    } else if (checkEmail(email)) {
+      setWarningText("You already have an account, try to log in");
+    } else if (!validPassword(password)) {
+      setWarningText("password must be more than 8 digits");
+    } else if (confirmPass != password) {
+      setWarningText("Password doesn't match");
+    } else {
+      setWarningText("");
+      const defaultImage =
+        image === ""
+          ? "https://i.pinimg.com/564x/9e/c9/19/9ec919468e1ed8af1002b551f5950a94.jpg"
+          : image;
+      axios
+        .post(AccountsAPI, {
+          name: name,
+          userName: username,
+          email: email,
+          password: password,
+          image: defaultImage,
+        })
+        .then((res) => {
+          const id = res.data.id;
+          navigate(`/home/${id}`);
+        });
     }
-    const validEmail = (email) => {
-        const pattern = /^[^\s@]+@[^s\@]+\.[^\s@]+$/;
-        return pattern.test(email)
-    }
-    const validPassword = (password) => {
-       return password.length >= 8 
-    }
-
-    const SignupAction = () => {
-        if (name == '' || username == '' || email == '' || password == '' || confirmPass == '') {
-            setWarningText('Please fill all the fields')
-        } else if (validUsername(username)) {
-            setWarningText('Username should be in lowercase')
-        } else if (checkUser(username)) {
-            setWarningText('Username already taken, choose another one')
-        } else if (!validEmail(email)) {
-            setWarningText('Invalid email')
-        }
-        else if (checkEmail(email)) {
-            setWarningText('You already have an account, try to log in')
-        } else if (!validPassword(password)) {
-            setWarningText('password must be more than 8 digits')
-        } else if (confirmPass != password) {
-            setWarningText("Password doesn't match")
-        } else {
-            setWarningText('')
-            const defaultImage = image === '' ? 'https://i.pinimg.com/564x/9e/c9/19/9ec919468e1ed8af1002b551f5950a94.jpg' : image;            
-            axios.post(AccountsAPI, {
-                name: name,
-                userName: username,
-                email: email,
-                password: password,
-                image: defaultImage
-            }).then((res) => {
-                const id = res.data.id;
-                navigate(`/home/${id}`)
-            })
-            
-        }
-    }
+  };
   return (
     <div className="h-screen w-full flex justify-center items-center">
       <div className="flex flex-col w-[80vw] md:w-[40vw] lg:w-[25vw]">
@@ -99,8 +103,8 @@ function Signup() {
           type="text"
           className="input input-bordered my-1 rounded-full"
           placeholder="Name"
-              />
-               <input
+        />
+        <input
           value={username}
           onChange={(e) => setUsername(e.target.value)}
           type="text"
@@ -127,17 +131,19 @@ function Signup() {
           type="password"
           className="input input-bordered my-1 rounded-full"
           placeholder="Confirm password"
-              />
+        />
         <input
           value={image}
           onChange={(e) => setImage(e.target.value)}
           type="text"
           className="input input-bordered my-1 rounded-full"
           placeholder="Profile image link (url)"
-              />
-                            <p className="text-error">{warningText}</p>
-
-        <button className="btn rounded-full btn-primary my-2 font-bold" onClick={SignupAction}>
+        />
+        <p className="text-error">{warningText}</p>
+        <button
+          className="btn rounded-full btn-primary my-2 font-bold"
+          onClick={SignupAction}
+        >
           Create Account
         </button>
         <p className="text-secondary my-5">
@@ -150,5 +156,4 @@ function Signup() {
     </div>
   );
 }
-
 export default Signup;

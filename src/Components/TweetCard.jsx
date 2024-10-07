@@ -1,21 +1,18 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 function TweetCard(props) {
-    const userid = props.userId
+  const userid = props.userId;
   const user = props.user;
   const [userTweet, setUserTweet] = useState(false);
   const [isArabic, setIsArabic] = useState(false);
-    const [like, setLike] = useState(false);
-    const [likeCount, setLikeCount] = useState(Number(props.likeCount));
-
+  const [like, setLike] = useState(false);
+  const [likeCount, setLikeCount] = useState(Number(props.likeCount));
   const [likeState, setLikeState] = useState("outline");
   const [LikeFilled, setLikeFilled] = useState("");
-
   useEffect(() => {
     checkUser();
     checkLanguage();
   }, [user, props.username]);
- 
   const checkLanguage = () => {
     if (props.text && /[\u0600-\u06FF]/.test(props.text[0])) {
       setIsArabic(true);
@@ -30,24 +27,21 @@ function TweetCard(props) {
       setUserTweet(false);
     }
   };
-
   const likeAction = () => {
-      setLike(!like);
+    setLike(!like);
     if (!like) {
       setLikeState("filled");
-        setLikeFilled("#B32F36");
-        setLikeCount((prevCount) => prevCount + 1);
-        
+      setLikeFilled("#B32F36");
+      setLikeCount((prevCount) => prevCount + 1);
     } else {
       setLikeState("outline");
-        setLikeFilled("");
-        setLikeCount((prevCount) => prevCount - 1);
-
+      setLikeFilled("");
+      setLikeCount((prevCount) => prevCount - 1);
     }
-    };
-    if (!user) {
-        return <div>Loading...</div>;
-      }
+  };
+  if (!user) {
+    return <div>Loading...</div>;
+  }
   return (
     <div className="flex border-b-2 border-b-zinc-900 py-5">
       <img
@@ -59,9 +53,8 @@ function TweetCard(props) {
         <div className="flex justify-between">
           <div className="flex">
             <p>{props.name}</p>
-                      <p className="text-secondary mx-2">@{props.username}</p>
-                      <p className="text-secondary mx-2">{props.time}</p>
-
+            <p className="text-secondary mx-2">@{props.username}</p>
+            <p className="text-secondary mx-2">{props.time}</p>
           </div>
           <div className="dropdown dropdown-end">
             <div tabIndex={0} role="button" className="btn m-1">
@@ -96,7 +89,9 @@ function TweetCard(props) {
               {userTweet && (
                 <>
                   <li>
-                    <Link to={`/home/${userid}/${props.tweetId}`}>Edit or Delete</Link>
+                    <Link to={`/home/${userid}/${props.tweetId}`}>
+                      Edit or Delete
+                    </Link>
                   </li>
                 </>
               )}
@@ -133,24 +128,23 @@ function TweetCard(props) {
             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
             <path d="M4 12v-3a3 3 0 0 1 3 -3h13m-3 -3l3 3l-3 3" />
             <path d="M20 12v3a3 3 0 0 1 -3 3h-13m3 3l-3 -3l3 -3" />
-                  </svg>
-                  <p className="flex">
-                      
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-          
-            viewBox="0 0 24 24"
-            fill={LikeFilled}
-            stroke="currentColor"
-            stroke-width="1"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            onClick={likeAction}
-            className={`icon icon-tabler icons-tabler-${likeState} icon-tabler-heart mr-2 w-[20px]`}
+          </svg>
+          <p className="flex">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill={LikeFilled}
+              stroke="currentColor"
+              stroke-width="1"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              onClick={likeAction}
+              className={`icon icon-tabler icons-tabler-${likeState} icon-tabler-heart mr-2 w-[20px]`}
             >
-            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-            <path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" />
-          </svg> {likeCount}
+              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+              <path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" />
+            </svg>{" "}
+            {likeCount}
           </p>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -180,11 +174,10 @@ function TweetCard(props) {
           >
             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
             <path d="M18 7v14l-6 -4l-6 4v-14a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4z" />
-                  </svg>
+          </svg>
         </div>
       </div>
     </div>
   );
 }
-
 export default TweetCard;

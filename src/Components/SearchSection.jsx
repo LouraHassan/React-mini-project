@@ -5,7 +5,6 @@ function SearchSection() {
   return (
     <div className="hidden lg:flex lg:flex-col w-[55vw]">
       <div className="sticky top-0 mx-4 bg-base-100 z-20">
-      
         <label className="input bg-neutral rounded-full flex items-center gap-2 my-1">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -35,14 +34,29 @@ function SearchSection() {
         <button className="btn btn-sm rounded-2xl btn-accent text-white my-2">
           Subscribe
         </button>
-          </div>
-          <div className="py-2 px-4 border-neutral border-2 m-4 rounded-xl">
+      </div>
+      <div className="py-2 px-4 border-neutral border-2 m-4 rounded-xl">
         <p className="text-[1.2rem] font-semibold">What's happening</p>
-              <TrendLabel title="الملك سلمان" sub1='Trending on X' sub2='23.9k posts'></TrendLabel>
-              <TrendLabel title="الهلال_الأهلي#" sub1='Trending on sports' sub2='26.3k posts'></TrendLabel>
-              <TrendLabel title="الخجل الإجتماعي" sub1='Trending on Saudi Arabia' sub2='7.2k posts'></TrendLabel>
-              <TrendLabel title="#Flutter" sub1='Trending on Technology' sub2='18.4k posts'></TrendLabel>
-
+        <TrendLabel
+          title="الملك سلمان"
+          sub1="Trending on X"
+          sub2="23.9k posts"
+        ></TrendLabel>
+        <TrendLabel
+          title="الهلال_الأهلي#"
+          sub1="Trending on sports"
+          sub2="26.3k posts"
+        ></TrendLabel>
+        <TrendLabel
+          title="الخجل الإجتماعي"
+          sub1="Trending on Saudi Arabia"
+          sub2="7.2k posts"
+        ></TrendLabel>
+        <TrendLabel
+          title="#Flutter"
+          sub1="Trending on Technology"
+          sub2="18.4k posts"
+        ></TrendLabel>
         <button className="btn btn-sm rounded-2xl btn-accent text-white my-2">
           Subscribe
         </button>
@@ -50,5 +64,4 @@ function SearchSection() {
     </div>
   );
 }
-
 export default SearchSection;

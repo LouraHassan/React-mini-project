@@ -10,8 +10,8 @@ function Login() {
   const [accounts, setAccounts] = useState([]);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-    const [warningText, setWarningText] = useState("");
-    const [successText, setSuccessText] = useState("");
+  const [warningText, setWarningText] = useState("");
+  const [successText, setSuccessText] = useState("");
 
   const [emailreset, setEmailreset] = useState("");
   const [passreset, setPassreset] = useState("");
@@ -39,8 +39,8 @@ function Login() {
     return EmailFound;
   };
   const validPassword = (password) => {
-    return password.length >= 8 
- }
+    return password.length >= 8;
+  };
   const LoginAction = () => {
     if (!checkUser(username)) {
       setWarningText("user not found");
@@ -65,23 +65,25 @@ function Login() {
     } else if (!checkEmail(emailreset)) {
       setWarningText("you don't have an account");
     } else if (!validPassword(passreset)) {
-        setWarningText('password must be more than 8 digits')
+      setWarningText("password must be more than 8 digits");
     } else if (passreset != confirmreset) {
-        setWarningText("Password doesn't match")
+      setWarningText("Password doesn't match");
     } else {
-        setWarningText('')
-        let user = accounts.find(el => el.email == emailreset);
-        axios.put(AccountsAPI + `/` + user.id, {
-            password: passreset
-        }).then(res => {
-            console.log(res.data);
-            console.log('password reset');
-            setSuccessText("You've reset you password successfully, Log in now!")
-            setEmailreset('')
-            setPassreset('')
-            setconfirmreset('')
-            getAccounts()
+      setWarningText("");
+      let user = accounts.find((el) => el.email == emailreset);
+      axios
+        .put(AccountsAPI + `/` + user.id, {
+          password: passreset,
         })
+        .then((res) => {
+          console.log(res.data);
+          console.log("password reset");
+          setSuccessText("You've reset you password successfully, Log in now!");
+          setEmailreset("");
+          setPassreset("");
+          setconfirmreset("");
+          getAccounts();
+        });
     }
   };
 
@@ -166,9 +168,9 @@ function Login() {
               type="password"
               className="input input-bordered w-full md:w-[40vw] lg:w-[25vw] my-1 rounded-full"
               placeholder="Confirm new password"
-                      />
-                              <p className="text-error">{warningText}</p>
-                      <p className="text-green-600">{successText}</p>
+            />
+            <p className="text-error">{warningText}</p>
+            <p className="text-green-600">{successText}</p>
             <button
               className="btn btn-primary w-full md:w-[40vw] lg:w-[25vw] rounded-full my-4 font-bold"
               onClick={ResetAction}

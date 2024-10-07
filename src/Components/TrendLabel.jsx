@@ -1,5 +1,4 @@
 import React from "react";
-
 function TrendLabel(props) {
   return (
     <div>
@@ -51,8 +50,8 @@ function TrendLabel(props) {
                 </svg>{" "}
                 Not interested in this
               </p>
-                      </li>
-                      <li>
+            </li>
+            <li>
               <p>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -83,5 +82,4 @@ function TrendLabel(props) {
     </div>
   );
 }
-
 export default TrendLabel;

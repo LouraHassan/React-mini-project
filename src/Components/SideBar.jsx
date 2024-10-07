@@ -1,61 +1,57 @@
 import axios from "axios";
-import React, { useState , useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
-
-const userAPI = `https://6703fa5aab8a8f8927327e3a.mockapi.io/accounts`
+const userAPI = `https://6703fa5aab8a8f8927327e3a.mockapi.io/accounts`;
 const tweetsLink = "https://6703fa5aab8a8f8927327e3a.mockapi.io/tweets";
-
 function SideBar(props) {
-console.log(props.user);
-
-    const [image, setImage] = useState('')
-
-    const [tweet, setTweet] = useState("");
-    const [warningText, setWarningText] = useState("");
-    const textareaRef = useRef(null);
-    const AddImageAction = () => {
-        if (image != '') {
-            axios.put(userAPI + `/` + props.user.id, {
-                image: image
-            }).then(res => {
-                console.log(res);
-                location.reload()
-            })
-        }
+  console.log(props.user);
+  const [image, setImage] = useState("");
+  const [tweet, setTweet] = useState("");
+  const [warningText, setWarningText] = useState("");
+  const textareaRef = useRef(null);
+  const AddImageAction = () => {
+    if (image != "") {
+      axios
+        .put(userAPI + `/` + props.user.id, {
+          image: image,
+        })
+        .then((res) => {
+          console.log(res);
+          location.reload();
+        });
     }
-
-    const textareaHeight = () => {
-        const textarea = textareaRef.current;
-        textarea.style.height = "auto";
-        textarea.style.height = `${textarea.scrollHeight}px`;
-      };
-      const TextChange = (e) => {
-        setTweet(e.target.value);
-        textareaHeight();
-      };
-    
-      useEffect(() => {
-        textareaHeight();
-      }, [tweet]);
-      const TweetAction = () => {
-        if (tweet == "") {
-          setWarningText("Type you tweet first");
-        } else {
-          axios
-            .post(tweetsLink, {
-              image: user.image,
-              name: user.name,
-              userName: user.userName,
-              tweet: tweet,
-              date: new Date(),
-            })
-            .then((res) => {
-              console.log(res);
-              setTweet("");
-              getTweets();
-            });
-        }
-      };
+  };
+  const textareaHeight = () => {
+    const textarea = textareaRef.current;
+    textarea.style.height = "auto";
+    textarea.style.height = `${textarea.scrollHeight}px`;
+  };
+  const TextChange = (e) => {
+    setTweet(e.target.value);
+    textareaHeight();
+  };
+  useEffect(() => {
+    textareaHeight();
+  }, [tweet]);
+  const TweetAction = () => {
+    if (tweet == "") {
+      setWarningText("Type you tweet first");
+    } else {
+      axios
+        .post(tweetsLink, {
+          image: user.image,
+          name: user.name,
+          userName: user.userName,
+          tweet: tweet,
+          date: new Date(),
+        })
+        .then((res) => {
+          console.log(res);
+          setTweet("");
+          getTweets();
+        });
+    }
+  };
   return (
     <div>
       <div className="drawer-content hidden md:flex justify-center  md:w-fit sticky top-0 lg:w-[18vw] lg:px-5 h-screen">
@@ -79,7 +75,10 @@ console.log(props.user);
                 <path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772" />
               </svg>
             </p>
-            <Link to={`/home/${props.user.id}`} className="btn hover:bg-neutral btn-circle lg:flex lg:justify-start lg:px-4 lg:rounded-full lg:w-full lg:hover:bg-neutral">
+            <Link
+              to={`/home/${props.user.id}`}
+              className="btn hover:bg-neutral btn-circle lg:flex lg:justify-start lg:px-4 lg:rounded-full lg:w-full lg:hover:bg-neutral"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="30"
@@ -233,7 +232,6 @@ console.log(props.user);
               </svg>
               <span className="hidden lg:block">Profile</span>
             </p>
-
             <p className="w-full my-1">
               <div className="dropdown dropdown-right dropdown-end w-full flex justify-center">
                 <p
@@ -419,7 +417,10 @@ console.log(props.user);
                 </ul>
               </div>
             </p>
-            <button onClick={()=>document.getElementById('tweetDialog').showModal()} className="btn btn-circle bg-accent hover:bg-neutral lg:w-full lg:my-2">
+            <button
+              onClick={() => document.getElementById("tweetDialog").showModal()}
+              className="btn btn-circle bg-accent hover:bg-neutral lg:w-full lg:my-2"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
@@ -435,36 +436,43 @@ console.log(props.user);
                 <path d="M16.482 3a4.515 4.515 0 0 1 4.518 4.514a4.7 4.7 0 0 1 -.239 1.487l-5.761 -.001v-5.76c.469 -.158 .968 -.24 1.482 -.24" />
               </svg>{" "}
               <span className="hidden lg:block">Post</span>
-                      </button>
-<dialog id="tweetDialog" className="modal">
-  <div className="modal-box border-2 border-neutral">
-    <form method="dialog">
-      <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
-                              </form>
-                              <div className="flex flex-col items-center">
-                                  
-                              <h3 className="font-bold text-lg text-center">Share a new tweet</h3>
-                              <textarea
-                  ref={textareaRef}
-                  value={tweet}
-                  onChange={(e) => setTweet(e.target.value)}
-                  type="text"
-                  className="textarea textarea-bordered w-full my-4"
-                                      placeholder="What is happening?! "
-                                      rows={3}
-                  style={{ overflow: "hidden", resize: "none", height: "auto" }}
+            </button>
+            <dialog id="tweetDialog" className="modal">
+              <div className="modal-box border-2 border-neutral">
+                <form method="dialog">
+                  <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+                    ✕
+                  </button>
+                </form>
+                <div className="flex flex-col items-center">
+                  <h3 className="font-bold text-lg text-center">
+                    Share a new tweet
+                  </h3>
+                  <textarea
+                    ref={textareaRef}
+                    value={tweet}
+                    onChange={(e) => setTweet(e.target.value)}
+                    type="text"
+                    className="textarea textarea-bordered w-full my-4"
+                    placeholder="What is happening?! "
+                    rows={3}
+                    style={{
+                      overflow: "hidden",
+                      resize: "none",
+                      height: "auto",
+                    }}
                   />
-                <hr className=" border-neutral" />
-                <p className="text-warning">{warningText}</p>
-                <button
-                  className="btn w-[80vw] my-2 md:w-[30vw] lg:w-[15vw] rounded-full btn-accent text-white "
-                  onClick={TweetAction}
+                  <hr className=" border-neutral" />
+                  <p className="text-warning">{warningText}</p>
+                  <button
+                    className="btn w-[80vw] my-2 md:w-[30vw] lg:w-[15vw] rounded-full btn-accent text-white "
+                    onClick={TweetAction}
                   >
-                  Post
-                </button>
-                    </div>
-  </div>
-</dialog>
+                    Post
+                  </button>
+                </div>
+              </div>
+            </dialog>
           </ul>
           <div className="flex self-center items-start flex-wrap my-2 justify-between lg:self-start">
             <img
@@ -512,7 +520,11 @@ console.log(props.user);
                 className="dropdown-content menu bg-base-100 rounded-box z-[1] w-72 p-2 shadow shadow-slate-700"
               >
                 <li>
-                  <p onClick={()=>document.getElementById('updateImageDialog').showModal()}>
+                  <p
+                    onClick={() =>
+                      document.getElementById("updateImageDialog").showModal()
+                    }
+                  >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="24"
@@ -532,22 +544,36 @@ console.log(props.user);
                     </svg>
                     Add profile image
                   </p>
-                              </li>
-<dialog id="updateImageDialog" className="modal">
-  <div className="modal-box border-2 border-neutral">
-    <form method="dialog">
-      <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
-                                      </form>
-                                      <div className="flex flex-col items-center">
-                                          
-                                      <h3 className="font-bold text-lg text-center my-4">Add or update your profile image</h3>
-                                          <input value={image} onChange={(e) => setImage(e.target.value)} type="text" className="input input-bordered my-4 md:w-[40vw] lg:w-[20vw]" placeholder="Image link (url)" />
-                                          <form method="dialog">
-                                      <button onClick={AddImageAction} className="btn btn-primary rounded-full md:w-[40vw] lg:w-[20vw]">Update image</button>
-                                      </form>
-                                      </div>
-  </div>
-</dialog>
+                </li>
+                <dialog id="updateImageDialog" className="modal">
+                  <div className="modal-box border-2 border-neutral">
+                    <form method="dialog">
+                      <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+                        ✕
+                      </button>
+                    </form>
+                    <div className="flex flex-col items-center">
+                      <h3 className="font-bold text-lg text-center my-4">
+                        Add or update your profile image
+                      </h3>
+                      <input
+                        value={image}
+                        onChange={(e) => setImage(e.target.value)}
+                        type="text"
+                        className="input input-bordered my-4 md:w-[40vw] lg:w-[20vw]"
+                        placeholder="Image link (url)"
+                      />
+                      <form method="dialog">
+                        <button
+                          onClick={AddImageAction}
+                          className="btn btn-primary rounded-full md:w-[40vw] lg:w-[20vw]"
+                        >
+                          Update image
+                        </button>
+                      </form>
+                    </div>
+                  </div>
+                </dialog>
                 <li>
                   <Link to="/">
                     <svg
@@ -578,5 +604,4 @@ console.log(props.user);
     </div>
   );
 }
-
 export default SideBar;
