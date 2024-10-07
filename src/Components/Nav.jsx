@@ -12,7 +12,7 @@ function Nav(props) {
               <img
                 src={props.avatar}
                 alt="img"
-                className="rounded-full m-1 w-[30px]"
+                className="rounded-full m-1 w-[30px] h-[30px]"
               />
             </label>
           </div>
@@ -29,7 +29,7 @@ function Nav(props) {
                   <img
                     src={props.avatar}
                     alt="img"
-                    className="rounded-full m-1 w-[30px]"
+                    className="rounded-full m-1 w-[30px] h-[30px]"
                   />
                   <p>{props.name}</p>
                   <p className="text-secondary">{props.username}</p>

@@ -77,7 +77,7 @@ const NewTweet = () => {
             <img
               src={user.image}
               alt=""
-              className="rounded-full w-[50px] mx-2"
+              className="rounded-full w-[50px] h-[50px] mx-2"
               />
                   <div className="flex">
                     <p>{user.name}</p>
